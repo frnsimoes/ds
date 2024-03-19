@@ -1,6 +1,9 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"strconv"
+)
 
 type Node struct {
 	data int
@@ -95,4 +98,17 @@ func (l *LinkedList) Size() int {
 
 func (l *LinkedList) IsEmpty() bool {
 	return l.head == nil
+}
+
+func (l *LinkedList) ToString() string {
+	var str string = ""
+	for node := l.head; node != nil; node = node.next {
+		if str == "" {
+			str += strconv.Itoa(node.data)
+			continue
+		}
+		str += " -> " + strconv.Itoa(node.data)
+
+	}
+	return str
 }
