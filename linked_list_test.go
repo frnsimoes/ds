@@ -2,6 +2,27 @@ package main
 
 import "testing"
 
+func BenchmarkLinkedListInsert(b *testing.B) {
+	list := LinkedList{}
+	for i := 0; i < b.N; i++ {
+		list.Insert(i, i)
+	}
+}
+
+func BenchmarkLinkedListAdd(b *testing.B) {
+	list := LinkedList{}
+	for i := 0; i < b.N; i++ {
+		list.Add(i)
+	}
+}
+
+func BenchmarkLinkedListAppend(b *testing.B) {
+	list := LinkedList{}
+	for i := 0; i < b.N; i++ {
+		list.Append(i)
+	}
+}
+
 func TestSize(t *testing.T) {
 	l := LinkedList{}
 	l.Append(1)
@@ -108,5 +129,18 @@ func TestRemove(t *testing.T) {
 
 	if got != expected {
 		t.Errorf("Expected %d, got %d", expected, got)
+	}
+}
+
+func TestToString(t *testing.T) {
+	l := LinkedList{}
+	l.Add(0)
+	l.Append(1)
+
+	expected := "0 -> 1"
+	got := l.ToString()
+
+	if got != expected {
+		t.Errorf("Expected %v, got %v", expected, got)
 	}
 }
