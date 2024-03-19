@@ -1,5 +1,7 @@
 package main
 
+import "errors"
+
 type Node struct {
 	data int
 	next *Node
@@ -15,6 +17,7 @@ func (l *LinkedList) Append(data int) {
 		l.head = node
 	} else {
 		var lastNode *Node
+		// this is just bad, gotta implement tail
 		for node := l.head; node != nil; node = node.next {
 			if node.next == nil {
 				lastNode = node
@@ -31,13 +34,45 @@ func (l *LinkedList) Add(data int) {
 	l.head = node
 }
 
-func (l *LinkedList) Insert(index int, data int) {
+func (l *LinkedList) Insert(index int, data int) error {
 	node := &Node{data: data}
-	rNode := l.Search(index)
+	foundNode := l.Search(index)
 
+	if index > l.Size() {
+		return errors.New("Index out of range")
+	}
+	if index == 0 {
+		l.head = node
+	} else {
+		previousNode := l.Search(index - 1)
+		previousNode.next = node
+		node.next = foundNode
+	}
+
+	return nil
 }
 
-func (l *LinkedList) Remove(index int) {}
+func (l *LinkedList) Remove(index int) error {
+	if index < 0 || index >= l.Size() {
+		return errors.New("index out of bounds")
+	}
+
+	if index == 0 {
+		l.head = l.head.next
+		return nil
+	}
+
+	previousNode := l.Search(index - 1)
+	nodeToRemove := previousNode.next
+
+	// PreviousNode doesn't point to nodeToRemove.
+	previousNode.next = nodeToRemove.next
+
+	// nodeToRemove doesn't point to anything. Garbage collector will take care of it.
+	nodeToRemove.next = nil
+
+	return nil
+}
 
 func (l *LinkedList) Search(index int) *Node {
 	var count int = 0

@@ -85,4 +85,28 @@ func TestInsert(t *testing.T) {
 
 	l.Insert(2, 2)
 
+	expected := 2
+	got := l.Search(2).data
+
+	if got != expected {
+		t.Errorf("Expected %d, got %d", expected, got)
+	}
+
+}
+
+func TestRemove(t *testing.T) {
+	l := LinkedList{}
+	l.Add(0)
+	l.Append(1)
+	l.Append(2)
+	l.Append(3)
+
+	l.Remove(2)
+
+	expected := 3
+	got := l.Search(2).data
+
+	if got != expected {
+		t.Errorf("Expected %d, got %d", expected, got)
+	}
 }
