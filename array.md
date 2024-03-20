@@ -1,4 +1,4 @@
-Most compiled languages (is there any?) doesn't have `insert` as a method for arrays, that is, in fact, one of its core components: fixed size. 
+Most compiled languages (are there any?) doesn't have `insert` as a method for arrays, that is, in fact, one of its core components: fixed size. 
 
 What I found interesting is how dynamic array-like data structures deal with this problem at runtime. To ilustrate this, when a list needs resize: when a python list is created, memory is allocated dynamically by CPython to store the list's elements. This memory allocation happens at runtime. The size of the initial memory block allocated for the list can vary depending on factors such as the initial size of the list.
 
