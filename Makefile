@@ -1,5 +1,6 @@
 test:
-	go test -v
+	go test -v ./...
+
 
 test-bench:
 	go test -bench=.
