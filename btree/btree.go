@@ -1,37 +1,35 @@
 package btree
 
-// Binary Search Tree, actually
-type BinaryTree struct {
-	root *Node
-}
-
 type Node struct {
 	left  *Node
 	right *Node
 	value int
 }
 
-func insert(btree *BinaryTree, node *Node) *Node {
-	// insert a node into a binary tree
-	_ = btree
-	_ = node
-	return nil
-}
-
-type traverseFunc func(node *Node, value int) *Node
-
-func search(node *Node, value int) *Node {
-	if value == node.value {
-		return node
-	}
-
+func Insert(node *Node, value int) *Node {
 	if node == nil {
-		return nil
+		return &Node{value: value}
 	}
 
 	if value < node.value {
-		return search(node.left, value)
+		node.left = Insert(node.left, value)
 	} else {
-		return search(node.right, value)
+		node.right = Insert(node.right, value)
 	}
+
+	return node
+}
+
+func Search(node *Node, value int) *Node {
+	if node == nil || node.value == value {
+		return node
+	}
+	if value < node.value {
+		return Search(node.left, value)
+	}
+	return Search(node.right, value)
+}
+
+func Delete(node *Node, value int) *Node {
+	return nil
 }
